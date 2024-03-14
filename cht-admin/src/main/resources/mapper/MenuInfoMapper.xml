@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cht.mp.mapper.MenuInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.cht.mp.pojo.database.MenuInfoDto">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="menuType" column="menu_type" jdbcType="INTEGER"/>
+            <result property="menuTitle" column="menu_title" jdbcType="VARCHAR"/>
+            <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+            <result property="menuPath" column="menu_path" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="extraIcon" column="extra_icon" jdbcType="VARCHAR"/>
+            <result property="rank" column="rank" jdbcType="INTEGER"/>
+            <result property="auths" column="auths" jdbcType="VARCHAR"/>
+            <result property="frameSrc" column="frame_src" jdbcType="VARCHAR"/>
+            <result property="keepAlive" column="keep_alive" jdbcType="BIT"/>
+            <result property="showLink" column="show_link" jdbcType="BIT"/>
+            <result property="showParent" column="show_parent" jdbcType="BIT"/>
+            <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="state" column="state" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,menu_type,menu_title,
+        menu_name,menu_path,parent_id,
+        icon,extra_icon,rank,
+        auths,frame_src,keep_alive,
+        show_link,show_parent,create_user_id,
+        create_time,update_user_id,update_time,
+        state
+    </sql>
+</mapper>

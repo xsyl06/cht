@@ -1,0 +1,74 @@
+server:
+  port: 21008
+  servlet:
+    context-path: "/cht"
+env:
+  # 默认密码的生成策略，1-(pwdPre+userName) 2-(pwdPre+phone后四位)
+  pwdPre: "Cht@"
+  default-pwd-policy: 1
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://124.221.46.250:20001/cht_dev?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+  data:
+    redis:
+      host: 124.221.46.250
+      port: 20002
+      password: Scsrm@123
+      database: 1
+      timeout: 10000
+      connect-timeout: 5000
+      lettuce:
+        pool:
+          enabled: false
+      jedis:
+        pool:
+          max-active: 8
+          min-idle: 1
+          max-wait: -1
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+mybatis-plus-join:
+  banner: false
+  ms-cache: false
+sa-token:
+  token-name: Authorization
+  is-share: false
+  token-style: simple-uuid
+  activeTimeout: 1800
+  timeout: 86400
+  alone-redis:
+    # Redis数据库索引（默认为0）
+    database: 2
+    # Redis服务器地址
+    host: 124.221.46.250
+    # Redis服务器连接端口
+    port: 20002
+    # Redis服务器连接密码（默认为空）
+    password: Scsrm@123
+    # 连接超时时间
+    timeout: 10000
+    lettuce:
+      pool:
+        max-wait: 8
+        min-idle: 1
+        time-between-eviction-runs: 60000
