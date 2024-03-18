@@ -1,3 +1,14 @@
+/*
+ * MIT License
+ * Copyright 2024-present cht
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.cht.admin.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
@@ -32,10 +43,21 @@ import java.util.stream.Collectors;
 import static com.cht.enums.ReturnEnum.*;
 import static com.cht.utils.Constants.LOGIN_USER;
 import static com.cht.utils.Constants.SYSTEM_REDIS_KEY_PREFIX;
-
+/**
+ * @description: 登录业务实现
+ * @author Wang
+ * @date 2024/3/15 15:42
+ * @version 1.0
+ */
 @Service
 @Slf4j
 public class LoginServiceImpl extends BaseService implements ILoginService {
+    /**
+     * 登录
+     * @param username 用户名
+     * @param password 密码
+     * @return 用户名、登录名、角色code列表、按钮权限、token
+     */
     @Override
     public R login(String username, String password) {
         log.info("[{}]开始登录", username);
@@ -78,6 +100,10 @@ public class LoginServiceImpl extends BaseService implements ILoginService {
         return r;
     }
 
+    /**
+     * 获取菜单路由
+     * @return 菜单路由
+     */
     @Override
     public R getAsyncRoutes() {
         //获取当前登录用户信息
@@ -92,6 +118,12 @@ public class LoginServiceImpl extends BaseService implements ILoginService {
         routesHandler(menuInfoDtos, list);
         return R.SUCCESS(list);
     }
+
+    /**
+     * 刷新token
+     * @param input refreshToken刷新token
+     * @return 返回参数，包括refreshToken和accessToken
+     */
     @Override
     public R refreshToken(LoginUserInfo input) {
         log.info("开始刷新token");
@@ -109,7 +141,11 @@ public class LoginServiceImpl extends BaseService implements ILoginService {
         return R.SUCCESS(input);
     }
 
-
+    /**
+     * 将数据库中查询出的路由列表处理成树结构
+     * @param menuInfoDtos 数据库中查询出的路由列表
+     * @param list 返回的路由树列表
+     */
     public void routesHandler(List<MenuInfoDto> menuInfoDtos, List<RoutesVo> list) {
         //设置两级缓存 保存已经处理过的菜单 和保存父菜单还没处理的子菜单的集合
         //已经处理过的菜单缓存，key为菜单id

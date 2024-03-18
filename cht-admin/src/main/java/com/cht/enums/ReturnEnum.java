@@ -1,5 +1,19 @@
+/*
+ * MIT License
+ * Copyright 2024-present cht
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.cht.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ReturnEnum {
     SUCCESS("000000", true, "交易成功"),
     FAIL("999999", false, "交易失败"),
@@ -24,6 +38,9 @@ public enum ReturnEnum {
     UPDATE_USER_FAIL("30023",false,"更新用户失败"),
     CHANGE_USER_STATE_FAIL("30025",false,"修改用户状态失败"),
     RESET_USER_PWD_FAIL("30026", false, "重置用户密码失败"),
+    USER_STATE_FAIL("30027", false, "用户状态为无效，无法操作"),
+    TWO_PSW_DIFF("30028", false, "原密码不正确"),
+    UPDATE_USER_PWD_FAIL("30029", false, "修改密码失败"),
     ;
 
 
@@ -38,24 +55,12 @@ public enum ReturnEnum {
         this.message = message;
     }
 
-    public String getCode() {
-        return code;
-    }
-
     public void setCode(String code) {
         this.code = code;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public void setMessage(String message) {

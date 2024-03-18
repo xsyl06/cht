@@ -1,3 +1,14 @@
+/*
+ * MIT License
+ * Copyright 2024-present cht
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.cht.admin.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -9,12 +20,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * @description: 菜单管理模块控制器
+ * @author Wang
+ * @date 2024/3/15 14:34
+ * @version 1.0 
+ */
 @RestController
 @RequestMapping("/api/menu")
 @Slf4j
 public class MenuController extends BaseController{
-
+    /**
+     * 查询菜单列表
+     * @return 菜单列表，为列表结构，由前端转为树结构
+     */
     @GetMapping("/list")
     public R getMenuList() {
         log.info("开始查询菜单列表");
@@ -28,6 +47,12 @@ public class MenuController extends BaseController{
         log.info("查询菜单列表出参：{}", JSON.toJSONString(r));
         return r;
     }
+
+    /**
+     * 保存菜单接口
+     * @param input 菜单信息入参
+     * @return 是否成功
+     */
     @PostMapping("/save")
     public R saveMenu(@RequestBody MenuInfoDto input) {
         log.info("开始保存菜单信息，入参：{}", JSON.toJSONString(input));
@@ -38,6 +63,11 @@ public class MenuController extends BaseController{
         }
     }
 
+    /**
+     * 更新菜单信息接口
+     * @param input 更新菜单信息
+     * @return 是否成功
+     */
     @PostMapping("/update")
     public R updateMenu(@RequestBody MenuInfoDto input){
         log.info("开始更新菜单信息，入参：{}", JSON.toJSONString(input));
@@ -48,6 +78,11 @@ public class MenuController extends BaseController{
         }
     }
 
+    /**
+     * 根据ID删除菜单信息接口
+     * @param id 菜单id
+     * @return 是否成功
+     */
     @GetMapping("/delete/{id}")
     public R deleteMenu(@PathVariable("id") Long id) {
         log.info("开始删除编号为[{}]的菜单", id);
