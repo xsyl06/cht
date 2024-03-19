@@ -15,6 +15,7 @@ import cn.dev33.satoken.stp.StpInterface;
 import cn.hutool.core.collection.CollectionUtil;
 import com.cht.admin.pojo.LoginUserInfo;
 import com.cht.admin.service.BaseService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 /**
@@ -23,6 +24,7 @@ import java.util.List;
  * @date 2024/3/18 11:18
  * @version 1.0
  */
+@Service
 public class StpInterfaceImpl extends BaseService implements StpInterface {
 
     @Override

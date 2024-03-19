@@ -11,11 +11,13 @@
 
 package com.cht.admin.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.alibaba.fastjson2.JSON;
 import com.cht.admin.pojo.BasePageVo;
 import com.cht.admin.pojo.R;
 import com.cht.admin.pojo.system.UserInfoVo;
 import com.cht.enums.ReturnEnum;
+import com.cht.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +50,7 @@ public class UserController extends BaseController {
      * @return 是否修改成功
      */
     @PostMapping("/changeState")
+    @SaCheckPermission(Constants.Permission.USER_UPDATE)
     public R changeUserState(@RequestBody UserInfoVo vo) {
         log.info("开始修改用户id为[{}]的状态到:[{}]", vo.getId(), vo.getState());
         // 修改用户状态
@@ -75,6 +78,7 @@ public class UserController extends BaseController {
      * @return 是否新增成功
      */
     @PostMapping("/add")
+    @SaCheckPermission(Constants.Permission.USER_ADD)
     public R addUser(@RequestBody UserInfoVo vo){
         log.info("开始添加用户：{}", JSON.toJSONString(vo));
         if (userService.saveUser(vo)) {
@@ -90,6 +94,7 @@ public class UserController extends BaseController {
      * @return 是否修改成功
      */
     @PostMapping("/update")
+    @SaCheckPermission(Constants.Permission.USER_UPDATE)
     public R updateUser(@RequestBody UserInfoVo vo) {
         log.info("开始修改用户：{}",JSON.toJSONString(vo));
         if (userService.updateUser(vo)) {
@@ -105,6 +110,7 @@ public class UserController extends BaseController {
      * @return 是否重置成功
      */
     @GetMapping("/resetPwd/{id}")
+    @SaCheckPermission(Constants.Permission.USER_RESETPWD)
     public R resetPwd(@PathVariable("id") Long id) {
         log.info("开始重置用户id为[{}]的密码", id);
         if (userService.resetPwd(id)) {

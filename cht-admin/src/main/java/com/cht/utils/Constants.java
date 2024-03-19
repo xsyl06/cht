@@ -12,10 +12,23 @@
 package com.cht.utils;
 
 public class Constants {
-    public static final String SYSTEM_REDIS_KEY_PREFIX="SYSTEM";
+    public static final String SYSTEM_REDIS_KEY_PREFIX = "SYSTEM";
     public static final String LOGIN_USER = "LOGIN:USER";
     public static final String REDIS_KEY_DICT = "DICT";
-    public static final String REFRESH_KEY="REFRESH";
-    public static final String BUSINESS_REDIS_KEY_PREFIX="BUSINESS";
-    public static final String ENCRYPT_PREFIX="encrypt";
+    public static final String REFRESH_KEY = "REFRESH";
+    public static final String BUSINESS_REDIS_KEY_PREFIX = "BUSINESS";
+    public static final String ENCRYPT_PREFIX = "encrypt";
+
+    public interface Permission {
+        String MENU_ADD = "menu:btn_add";
+        String MENU_UPDATE = "menu:btn_update";
+        String MENU_DELETE = "menu:btn_delete";
+        String ROLE_ADD = "role:btn_add";
+        String ROLE_UPDATE = "role:btn_update";
+        String ROLE_DELETE = "role:btn_delete";
+        String USER_ADD = "user:btn_add";
+        String USER_UPDATE = "user:btn_update";
+        String USER_RESETPWD = "user:btn_resetpwd";
+    }
+
 }

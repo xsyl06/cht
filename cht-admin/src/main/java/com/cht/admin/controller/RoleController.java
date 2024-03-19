@@ -11,6 +11,7 @@
 
 package com.cht.admin.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.alibaba.fastjson2.JSON;
 import com.cht.admin.pojo.BasePageVo;
 import com.cht.admin.pojo.R;
@@ -18,6 +19,7 @@ import com.cht.admin.pojo.system.RolMenuVo;
 import com.cht.admin.pojo.system.RoleInfoVo;
 import com.cht.enums.ReturnEnum;
 import com.cht.mp.pojo.database.RoleInfoDto;
+import com.cht.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,7 +67,7 @@ public class RoleController extends BaseController {
      */
     @GetMapping("/getAllMenuList")
     public R getAllMenuList() {
-        log.info("橘色新增和修改时开始查询所有菜单");
+        log.info("角色新增和修改时开始查询所有菜单");
         List<RolMenuVo> list = roleService.getAllMenuList();
         return R.SUCCESS(list);
     }
@@ -76,6 +78,7 @@ public class RoleController extends BaseController {
      * @return 是否成功
      */
     @PostMapping("/add")
+    @SaCheckPermission(Constants.Permission.ROLE_ADD)
     public R addRole(@RequestBody RoleInfoVo vo) {
         log.info("新增角色入参：{}", JSON.toJSONString(vo));
         R r;
@@ -93,6 +96,7 @@ public class RoleController extends BaseController {
      * @return 是否成功
      */
     @PostMapping("/update")
+    @SaCheckPermission(Constants.Permission.ROLE_UPDATE)
     public R updateRole(@RequestBody RoleInfoVo vo) {
         log.info("修改角色入参：{}", JSON.toJSONString(vo));
         R r;
@@ -110,6 +114,7 @@ public class RoleController extends BaseController {
      * @return 是否修改成功
      */
     @PostMapping("/changeState")
+    @SaCheckPermission(Constants.Permission.ROLE_UPDATE)
     public R changeRoleState(@RequestBody RoleInfoVo vo) {
         log.info("修改角色状态入参：{}", JSON.toJSONString(vo));
         R r;
@@ -127,6 +132,7 @@ public class RoleController extends BaseController {
      * @return 是否删除成功
      */
     @GetMapping("/deleteRole/{id}")
+    @SaCheckPermission(Constants.Permission.ROLE_DELETE)
     public R deleteRoleById(@PathVariable("id") Long id) {
         log.info("删除角色入参：{}", id);
         R r;

@@ -11,11 +11,13 @@
 
 package com.cht.admin.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson2.JSON;
 import com.cht.admin.pojo.R;
 import com.cht.enums.ReturnEnum;
 import com.cht.mp.pojo.database.MenuInfoDto;
+import com.cht.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,15 +52,17 @@ public class MenuController extends BaseController{
 
     /**
      * 保存菜单接口
+     *
      * @param input 菜单信息入参
      * @return 是否成功
      */
     @PostMapping("/save")
+    @SaCheckPermission(Constants.Permission.MENU_ADD)
     public R saveMenu(@RequestBody MenuInfoDto input) {
         log.info("开始保存菜单信息，入参：{}", JSON.toJSONString(input));
         if (menuService.saveMenu(input)) {
             return R.SUCCESS();
-        }else {
+        } else {
             return R.FAIL(ReturnEnum.ADD_MENU_FAIL);
         }
     }
@@ -69,6 +73,7 @@ public class MenuController extends BaseController{
      * @return 是否成功
      */
     @PostMapping("/update")
+    @SaCheckPermission(Constants.Permission.MENU_UPDATE)
     public R updateMenu(@RequestBody MenuInfoDto input){
         log.info("开始更新菜单信息，入参：{}", JSON.toJSONString(input));
         if (menuService.updateMenu(input)) {
@@ -84,6 +89,7 @@ public class MenuController extends BaseController{
      * @return 是否成功
      */
     @GetMapping("/delete/{id}")
+    @SaCheckPermission(Constants.Permission.MENU_DELETE)
     public R deleteMenu(@PathVariable("id") Long id) {
         log.info("开始删除编号为[{}]的菜单", id);
         if (menuService.deleteMenu(id)) {

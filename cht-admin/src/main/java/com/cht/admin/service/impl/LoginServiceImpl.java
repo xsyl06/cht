@@ -311,9 +311,14 @@ public class LoginServiceImpl extends BaseService implements ILoginService {
         //判断父类是否处理过
         if (ObjectUtil.isNotEmpty(parent)) {
             //父类已经处理过，将该按钮权限加入页面的权限列表
-            List<String> auths = new ArrayList<>();
-            auths.add(menuInfoDto.getAuths());
-            parent.getMeta().setAuths(auths);
+            if (parent.getMeta().getAuths() == null) {
+                List<String> auths = new ArrayList<>();
+                auths.add(menuInfoDto.getAuths());
+                parent.getMeta().setAuths(auths);
+            }else {
+                parent.getMeta().getAuths().add(menuInfoDto.getAuths());
+            }
+
         }else{
             //父菜单未处理过，检擦按钮权限列表缓存是否存在
             if (menuPermissionMap.containsKey(menuInfoDto.getParentId())) {
