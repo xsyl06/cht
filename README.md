@@ -1,11 +1,11 @@
-<h1>cht</h1>
+<h1>Cht</h1>
 
 [![license](https://img.shields.io/github/license/pure-admin/vue-pure-admin.svg)](LICENSE)
 
 **中文**
 
 ## 介绍
-
+配套前端项目地址[cht-admin-vue](https://github.com/xsyl06/cht-admin-vue)
 前端基于pure-admin-thin二次开发，后端基于`springboot3`、`mybatis-plus`、`mybatis-plus-join`、`sa-token`、`redis`、`mysql8`开发的后台管理系统
 
 该项目包含后台管理的用户、角色、菜单权限以及登录鉴权等基础功能，适合作为后台管理的脚手架进行使用。可自行添加其他功能模块。
@@ -17,6 +17,7 @@
 - 前后端使用sm2方式进行加密通信，保证通信安全
 - 支持水平扩展
 
+##
 ## 快速开始
 ### 环境及准备
 #### JDK
@@ -32,6 +33,10 @@
 #### 从gitee上拉取代码
 ```shell
 git clone https://gitee.com/xsyl06/cht.git
+```
+#### 从github上拉取代码
+```shell
+git clone https://github.com/xsyl06/cht.git
 ```
 ### 配置
 #### 配置数据库
@@ -90,6 +95,8 @@ spring:
 ```shell
 java -jar cht-admin-0.0.1.jar -Dspring.profiles.active=dev
 ```
+### 开发
+自有的业务需求可在com.cht包下新建包编写，或者新建model进行编写。
 ### 常见问题解答
 #### common用户无法登录
 在[生成自己的前后端密钥及密码](#生成自己的前后端密钥及密码)中只生成了admin的密码，因此common因使用的公私钥不同可能无法登录。
@@ -97,14 +104,14 @@ java -jar cht-admin-0.0.1.jar -Dspring.profiles.active=dev
 1. 可登录admin将common的密码重置。
 2. 可在[生成自己的前后端密钥及密码](#生成自己的前后端密钥及密码)中生成common的密码，然后修改数据库中`system_user_info`表中数据或直接修改脚本中common用户的密码后再执行sql。
 #### 密码重置后的密码是多少
-平台默认的密码生成策略为`Cht@登录名`,可修改配置文件中`env.pwdPre`和`env.default-pwd-policy`.并且出于安全考虑也建议进行修改。
+平台默认的密码生成策略为`Cht@登录名`,可修改配置文件中`env.pwdPre`和`env.default-pwd-policy`。出于安全考虑也建议进行修改。
 ```yaml
 env:
   # 默认密码的生成策略，1-(pwdPre+userName) 2-(pwdPre+phone后四位)
   pwdPre: "Cht@"
   default-pwd-policy: 1
 ```
-如果想自己实现默认密码的逻辑，可修改`com.cht.admin.service.BaseService.getDefaultPwd(UserInfoVo vo)`方法即可。
+如果想自己实现默认密码的逻辑，修改或重写`com.cht.admin.service.BaseService.getDefaultPwd(UserInfoVo vo)`方法即可。
 #### 如何进行接口的权限校验
 以MenuController.deleteMenu()为例，在方法上添加注解`@SaCheckPermission(对应权限名称)`即可，同时需要在页面上添加对应角色的权限。具体可参考[sa-token"注解鉴权"章节](https://sa-token.cc/doc.html#/use/at-check)
 ```java
@@ -140,5 +147,16 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 }
 ```
 
+## 碎碎念
+这个项目的构想源于我在工作过程中发现，后台管理系统（后管）几乎是每个项目必不可少的一部分。有些系统在初期可能没有设计后管，但随着业务的发展，逐渐意识到需要一个管理界面来进行配置人员信息的管理。在工作中，每当开始一个新项目，我都需要编写一套用户管理、角色管理、权限控制以及登录认证等功能，这显得非常繁琐。
+
+此外，虽然有许多优秀的开源后管项目，例如ruoyi等，但在实际使用中，它们与我们的业务流程并不是完全吻合，因此需要对功能进行删减甚至是修改才能适应我们的需求。
+
+基于以上原因，我产生了创建一个类似脚手架的项目的想法。这个项目只包含最基本的后管功能，方便开发人员快速上手，并在此基础上添加适合自己业务的功能。这样，我们可以节省开发时间，提高开发效率，同时也能确保后管系统与我们的业务需求高度匹配。
+
+项目的前端使用了开源可商用的[pure-admin](https://yiming_chang.gitee.io/pure-admin-doc/)，感谢大佬的开源精神，让我这个后端菜鸡在对前端一窍不通的情况下搞定了公司的项目。这个前端框架也是公司一个项目目前在用的。
+
+如果这个项目有帮到你一点点，我都非常荣幸！
 ## 许可证
+完全开源免费，可免费商用
 [MIT © 2024-present, cht-admin](./LICENSE)
