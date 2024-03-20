@@ -12,10 +12,12 @@
 package com.cht.utils;
 
 import cn.hutool.core.util.HexUtil;
+import cn.hutool.crypto.BCUtil;
 import cn.hutool.crypto.SmUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.SM2;
 import com.cht.mp.pojo.database.DictDto;
+import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,37 +44,39 @@ public class SMUtils {
     }
 
     public static void main(String[] args) {
-/*
-//        SM2 sm2 = SmUtil.sm2();
-//        byte[] privateKey = BCUtil.encodeECPrivateKey(sm2.getPrivateKey());
-//        byte[] publicKey = ((BCECPublicKey) sm2.getPublicKey()).getQ().getEncoded(false);
-//        System.out.println("私钥: " + HexUtil.encodeHexStr(privateKey));
-//        System.out.println("公钥: " + HexUtil.encodeHexStr(publicKey));
+        SM2 sm2 = SmUtil.sm2();
+        byte[] privateKey = BCUtil.encodeECPrivateKey(sm2.getPrivateKey());
+        byte[] publicKey = ((BCECPublicKey) sm2.getPublicKey()).getQ().getEncoded(false);
+        String privateKeyStr = HexUtil.encodeHexStr(privateKey);
+        String publicKeyStr = HexUtil.encodeHexStr(publicKey);
+        System.out.println("私钥: " + privateKeyStr);
+        System.out.println("公钥: " + publicKeyStr);
+        System.out.println("===============================");
+        //生成盐（如果对象中没有，则新增一个16位的盐，如果有，使用对象中的）
+        String tmpStr = "张三";
+        SM2 sm2_1 = SmUtil.sm2(privateKeyStr, publicKeyStr);
+        byte[] signByte = sm2_1.sign(tmpStr.getBytes(StandardCharsets.UTF_8));
+        String sign = HexUtil.encodeHexStr(signByte);
+        System.out.println("加密后密码："+sign);
+        System.out.println("校验密码："+sm2.verify(tmpStr.getBytes(StandardCharsets.UTF_8), HexUtil.decodeHex(sign)));
+        System.out.println("===============================");
+        String dataStr = "测试加解密报文";
+        byte[] dateByte = dataStr.getBytes(StandardCharsets.UTF_8);
+        byte[] encrypt = sm2_1.encrypt(dateByte, KeyType.PublicKey);
+        String encodeStr = HexUtil.encodeHexStr(encrypt);
+        System.out.println("前后端加密后密文："+encodeStr);
+        byte[] dataBytes = HexUtil.decodeHex(encodeStr);
+        byte[] decrypt = sm2_1.decrypt(dataBytes, KeyType.PrivateKey);
+        System.out.println("前后端加密后解密明文："+new String(decrypt));
+        System.out.println("===============================");
+        String adminSalt = "skwvt3uwxpxcyaoo";
+        String pwdStr = "张三"+adminSalt;
+        SM2 sm2_2 = SmUtil.sm2(privateKeyStr, publicKeyStr);
+        byte[] pwdSignByte = sm2_2.sign(pwdStr.getBytes(StandardCharsets.UTF_8));
+        String pwdSign = HexUtil.encodeHexStr(pwdSignByte);
+        System.out.println("加密后密码："+pwdSign);
 
-//        String text = "张三";
-//        byte[] dateByte = text.getBytes(StandardCharsets.UTF_8);
-//        SM2 sm2 = SmUtil.sm2(null, publicKey);
-//        byte[] encrypt = sm2.encrypt(dateByte, KeyType.PublicKey);
-//        String e = HexUtil.encodeHexStr(encrypt);
-//        System.out.println(e);
-//        String b = "0499b246adb0a3da1b7eabe2fc3661263da37fadfe7b1f84e327bd7345e26249fee343a27cb8791aae77a92bce7fc8bb1b7550f4d191da0a4dbb3a9d80fe16c36cbf8ed5e3a02af2f6ec6cdcdcc6694994e6da4adf6f2e38ceeda85bb1951eb550416c1884b4f4e1089c2ed0be1b186617f682e3f62f0c8e1047b714e234d34d5d565ca79d6310e379eb14";
-//        byte[] eBytes = HexUtil.decodeHex(b);
-//        SM2 sm2_1 = SmUtil.sm2(privateKey, null);
-//        byte[] decrypt = sm2_1.decrypt(eBytes, KeyType.PrivateKey);
-//        System.out.println(new String(decrypt));*/
-        String publicKey = "04c44236f742a4c98caea8e70b4f11d30ea391616f7018fa04d753e0849ca38fc06e70a4dff1b752f20605d866f4d14953d667b3c73506610043b83ad06a531cee";
-        String privateKey = "6b8c0f237c6f97c82682c0eddab082080cc909a8b6e8735eac874a59c2962658";
-        SM2 sm2 = SmUtil.sm2(privateKey, publicKey);
-        String a = "admin123skwvt3uwxpxcyaoo";
-        byte[] sign = sm2.sign(a.getBytes(StandardCharsets.UTF_8));
-        String b = HexUtil.encodeHexStr(sign);
-        System.out.println(b);
-        System.out.println("===========");
 
-        SM2 sm2_1 = SmUtil.sm2(null, publicKey);
-
-        boolean verify = sm2_1.verify(a.getBytes(StandardCharsets.UTF_8), HexUtil.decodeHex(b));
-        System.out.println(verify);
 
 
 
