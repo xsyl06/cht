@@ -6,10 +6,11 @@
 
 ## 介绍
 
-前端基于pure-admin-thin二次开发，后端基于springboot3、mybatis-plus\mybatis-plus-join、sa-token、redis、mysql8开发的后台管理系统
+前端基于pure-admin-thin二次开发，后端基于`springboot3`、`mybatis-plus`、`mybatis-plus-join`、`sa-token`、`redis`、`mysql8`开发的后台管理系统
 
 该项目包含后台管理的用户、角色、菜单权限以及登录鉴权等基础功能，适合作为后台管理的脚手架进行使用。可自行添加其他功能模块。
 
+非常感谢大佬开源的[pure-admin](https://yiming_chang.gitee.io/pure-admin-doc/)项目，让我学到很多前端知识。
 ## 特性
 - 使用mybatis-plus减轻sql开发工作
 - 使用sa-token进行登录、鉴权，支持接口级别的鉴权校验
