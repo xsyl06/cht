@@ -90,11 +90,33 @@ spring:
 在mysql数据库中执行sql文件夹下的脚本，先执行`init_DDL.sql`，后执行`init_DML.sql`
 
 #### 启动后端项目
-1. idea中启动直接点击启动按钮即可
-2. 打包后的可使用以下命令启动，其中`-Dspring.profiles.active=dev`为需要使用的环境配置文件，可使用不同配置文件来实现不同环境的配置
+idea中启动直接点击启动按钮即可，默认环境为dev环境
+
+打包后的可使用shell目录下的`auto-deploy-server.sh`脚本进行启动，其中需要修改`cht.ini`内的各项信息
+
+##### 备份脚本
 ```shell
-java -jar cht-admin-0.0.1.jar -Dspring.profiles.active=dev
+sh auto-deploy-server.sh backup
 ```
+
+##### 启动脚本
+```shell
+sh auto-deploy-server.sh start
+```
+##### 停止脚本
+```shell
+sh auto-deploy-server.sh stop
+```
+
+##### 发布脚本
+```shell
+sh auto-deploy-server.sh deploy
+```
+##### 健康检查脚本
+```shell
+sh auto-deploy-server.sh check
+```
+
 ### 开发
 自有的业务需求可在com.cht包下新建包编写，或者新建model进行编写。
 ### 常见问题解答

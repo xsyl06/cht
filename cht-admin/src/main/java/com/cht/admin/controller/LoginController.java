@@ -15,11 +15,12 @@ import com.cht.admin.pojo.LoginUserInfo;
 import com.cht.admin.pojo.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
 /**
- * @description:  登录相关控制类
  * @author Wang
- * @date 2024/3/15 14:04
  * @version 1.0
+ * @description: 登录相关控制类
+ * @date 2024/3/15 14:04
  */
 @RestController
 @RequestMapping("/api")
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController extends BaseController {
     /**
      * 用户登录接口
+     *
      * @param input 包括用户名、密码
      * @return 用户登录信息
      */
@@ -37,7 +39,8 @@ public class LoginController extends BaseController {
 
     /**
      * 刷新token接口，当token失效时通过该接口刷新token
-     * @param  loginUserInfo 登录用户信息
+     *
+     * @param loginUserInfo 登录用户信息
      * @return 刷新后的token
      */
     @PostMapping("/refreshToken")
@@ -47,10 +50,20 @@ public class LoginController extends BaseController {
 
     /**
      * 根据登录账号获取该账号的菜单路由，只返回有效状态的角色和菜单
+     *
      * @return 树形结构的菜单
      */
     @GetMapping("/getAsyncRoutes")
     public R getAsyncRoutes() {
         return loginService.getAsyncRoutes();
+    }
+
+    /**
+     * 测试接口，用于测试服务状态是否正常
+     * @return 成功
+     */
+    @GetMapping("/testAction")
+    public R testAction() {
+        return R.SUCCESS();
     }
 }
